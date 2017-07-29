@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Discord Regional Indicator Text Generator</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" />
+	<style>
+		body {
+			max-width: 800px;
+			margin: 30px auto;
+			padding: 0 16px;
+		}
+		#message_block_template {
+			display: none;
+		}
+		.message-block {
+		    margin-top: 16px;
+		}
+		.message-block h4 {
+		    font-size: 16px;
+		    color: #868686;
+		}
+		.message {
+		    max-height: 200px;
+		    overflow-y: scroll;
+		}
+		#radio_newlines {
+			margin-left: 16px;
+		}
+		label {
+			font-weight: 600;
+		}
+	</style>
+</head>
+<body>
+	<h1>Discord Regional Indicator Text Generator</h1>
+	<p>A simple script that converts text into Discord's Regional Indicator text. Supports punctuation as well.</p>
+	<form id="message_form">
+		<div class='form-group'>
+			<label for="input">Input text:</label>
+			<textarea id="input" class="form-control" rows="5" required></textarea>
+		</div>
+		<div class='form-group'>
+			<legend>Separate each word with: </legend>
+			<input type="radio" id="radio_tabs" name="radio-separator" value="tabs" checked />
+			<label for="radio_tabs">Tabs</label>
+			<input type="radio" id="radio_newlines" name="radio-separator" value="newlines" />
+			<label for="radio_newlines">Line Breaks</label>
+		</div>
+		<input type="submit" id="convert" class="btn btn-primary" value="Convert" />
+	</form>
+
+
+	<div class='message-block' id='message_block_template'>
+		<h3 class="message-title">Message 1</h3>
+		<h4 class="message-subtitle">0 characters</h4>
+		<p class='message'></p>
+		<button class="btn btn-default">Copy</button>
+	</div>
+	<div id="message_blocks">
+
+	</div>
+
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
+	<script>
+function Convert() {
+	var message = $("#input").val();
+	var words = message.split(" ");
+
+	var newwords = [];
+	var message = 1;
+	var currentmessage = "";
+	var isalpha = /[a-z]/i;
+	var separator = "\t";
+	if ($("#radio_newlines").is(":checked")) {
+		separator = "\n";
+	}
+
+	$("#message_blocks").empty();
+	$.each(words, function(i, word) {
+		var newword = "";
+		$.each(word.split(""), function(j, letter) {
+			l = letter.toLowerCase();
+			if (l == "a")
+				newword += ":a: ";
+			else if (l == "b")
+				newword += ":b: ";
+			else if (l.match(isalpha))
+				newword += ":regional_indicator_" + l + ": ";
+			else if (letter == "?")
+				newword += ":question:";
+			else if (letter == "!")
+				newword += ":exclamation:";
+			else if (letter == ".")
+				newword += ":radio_button:";
+			else if (letter == "'")
+				newword += ":small_red_triangle_down:";
+			else
+				newword += letter;
+		});
+		if (currentmessage.length + newword.length > 2000) {
+			OutputMessage(currentmessage, message);
+			currentmessage = newword + separator;
+			message += 1;
+		}
+		else {
+			currentmessage += newword + separator;
+		}
+	});
+	OutputMessage(currentmessage, message)
+	console.log("Conversion complete");
+}
+function btnCopyClick() {
+	$(this).tooltip({
+		title: "Copied!",
+		trigger: "manual"
+	}).tooltip("show");
+}
+function btnCopyMouseLeave() {
+	if ($(this).is("[aria-describedby]")) {
+		$(this).tooltip('dispose');
+	}
+}
+function OutputMessage(message, i) {0
+	var blockId = "message_block" + i.toString();
+	var output = $("#message_block_template").clone().attr("id", blockId);
+	output.find(".message-title").text("Message " + i.toString());
+	output.find(".message-subtitle").text(message.length + " characters");
+	output.find(".message").text(message).attr("id", "message" + i.toString());
+	output.find("button").click(btnCopyClick).mouseleave(btnCopyMouseLeave);
+	$("#message_blocks").append(output);
+
+	//After content has been added
+	new Clipboard("#" + blockId + " button", {
+		text: function(trigger) {
+			return message;
+		}
+	});
+}
+$(function() {
+	$("#message_form").submit(function(e) {
+		e.preventDefault();
+		Convert();
+	})
+});
+	</script>
+
+</body>
+</html>
