@@ -10,6 +10,15 @@
 			margin: 30px auto;
 			padding: 0 16px;
 		}
+		label {
+			font-weight: 600;
+		}
+		#message_form h5 {
+			font-weight: normal;
+		}
+		#radio_newlines {
+			margin-left: 16px;
+		}
 		#message_block_template {
 			display: none;
 		}
@@ -24,12 +33,6 @@
 		    max-height: 200px;
 		    overflow-y: scroll;
 		}
-		#radio_newlines {
-			margin-left: 16px;
-		}
-		label {
-			font-weight: 600;
-		}
 	</style>
 </head>
 <body>
@@ -41,7 +44,7 @@
 			<textarea id="input" class="form-control" rows="5" required></textarea>
 		</div>
 		<div class='form-group'>
-			<legend>Separate each word with: </legend>
+			<h5>Separate each word with: </h5>
 			<input type="radio" id="radio_tabs" name="radio-separator" value="tabs" checked />
 			<label for="radio_tabs">Tabs</label>
 			<input type="radio" id="radio_newlines" name="radio-separator" value="newlines" />
@@ -75,6 +78,8 @@ function Convert() {
 	var message = 1;
 	var currentmessage = "";
 	var isalpha = /[a-z]/i;
+	var isnumber = /[0-9]/;
+	var numbers = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"]
 	var separator = "\t";
 	if ($("#radio_newlines").is(":checked")) {
 		separator = "\n";
@@ -91,6 +96,8 @@ function Convert() {
 				newword += ":b: ";
 			else if (l.match(isalpha))
 				newword += ":regional_indicator_" + l + ": ";
+			else if (l.match(isnumber))
+				newword += ":" + numbers[parseInt(l)] + ": ";
 			else if (letter == "?")
 				newword += ":question:";
 			else if (letter == "!")
