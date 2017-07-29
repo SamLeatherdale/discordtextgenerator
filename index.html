@@ -1,75 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-	<meta charset="utf-8">
-	<title>Discord Regional Indicator Text Generator</title>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" />
-	<style>
-		body {
-			max-width: 800px;
-			margin: 30px auto;
-			padding: 0 16px;
-		}
-		label {
-			font-weight: 600;
-		}
-		#message_form h5 {
-			font-weight: normal;
-		}
-		#radio_newlines {
-			margin-left: 16px;
-		}
-		#message_block_template {
-			display: none;
-		}
-		.message-block {
-		    margin-top: 16px;
-		}
-		.message-block h4 {
-		    font-size: 16px;
-		    color: #868686;
-		}
-		.message {
-		    max-height: 200px;
-		    overflow-y: scroll;
-		}
-	</style>
+    <meta charset="utf-8">
+    <title>Discord Regional Indicator Text Generator</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" />
+    <style>
+        body {
+            max-width: 800px;
+            margin: 30px auto;
+            padding: 0 16px;
+        }
+
+        label {
+            font-weight: 600;
+        }
+
+        #message_form h5 {
+            font-weight: normal;
+        }
+
+        #radio_newlines {
+            margin-left: 16px;
+        }
+
+        #message_block_template {
+            display: none;
+        }
+
+        .message-block {
+            margin-top: 16px;
+        }
+
+        .message-block h4 {
+            font-size: 16px;
+            color: #868686;
+        }
+
+        .message {
+            max-height: 200px;
+            overflow-y: scroll;
+        }
+    </style>
 </head>
+
 <body>
-	<h1>Discord Regional Indicator Text Generator</h1>
-	<p>A simple script that converts text into Discord's Regional Indicator text. Supports punctuation as well.</p>
-	<form id="message_form">
-		<div class='form-group'>
-			<label for="input">Input text:</label>
-			<textarea id="input" class="form-control" rows="5" required></textarea>
-		</div>
-		<div class='form-group'>
-			<h5>Separate each word with: </h5>
-			<input type="radio" id="radio_tabs" name="radio-separator" value="tabs" checked />
-			<label for="radio_tabs">Tabs</label>
-			<input type="radio" id="radio_newlines" name="radio-separator" value="newlines" />
-			<label for="radio_newlines">Line Breaks</label>
-		</div>
-		<input type="submit" id="convert" class="btn btn-primary" value="Convert" />
-	</form>
+    <h1>Discord Regional Indicator Text Generator</h1>
+    <p>A simple script that converts text into Discord's Regional Indicator text. Supports punctuation as well.</p>
+    <form id="message_form">
+        <div class='form-group'>
+            <label for="input">Input text:</label>
+            <textarea id="input" class="form-control" rows="5" required></textarea>
+        </div>
+        <div class='form-group'>
+            <h5>Separate each word with: </h5>
+            <input type="radio" id="radio_tabs" name="radio-separator" value="tabs" checked />
+            <label for="radio_tabs">Tabs</label>
+            <input type="radio" id="radio_newlines" name="radio-separator" value="newlines" />
+            <label for="radio_newlines">Line Breaks</label>
+        </div>
+        <input type="submit" id="convert" class="btn btn-primary" value="Convert" />
+    </form>
 
 
-	<div class='message-block' id='message_block_template'>
-		<h3 class="message-title">Message 1</h3>
-		<h4 class="message-subtitle">0 characters</h4>
-		<p class='message'></p>
-		<button class="btn btn-default">Copy</button>
-	</div>
-	<div id="message_blocks">
+    <div class='message-block' id='message_block_template'>
+        <h3 class="message-title">Message 1</h3>
+        <h4 class="message-subtitle">0 characters</h4>
+        <p class='message'></p>
+        <button class="btn btn-default">Copy</button>
+    </div>
+    <div id="message_blocks">
 
-	</div>
+    </div>
 
 
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
-	<script src="script.js?v=1.0.2"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
+    <script src="script.js?v=1.0.2"></script>
 
 </body>
+
 </html>
