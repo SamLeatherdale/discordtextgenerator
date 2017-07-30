@@ -29,7 +29,16 @@
         }
 
         .message-block {
-            margin-top: 16px;
+            margin-top: 25px;
+        }
+
+        .message-block button {
+            vertical-align: top;
+        }
+
+        .message-title-block {
+            display: inline-block;
+            width: 175px;
         }
 
         .message-block h4 {
@@ -38,7 +47,7 @@
         }
 
         .message {
-            max-height: 200px;
+            max-height: 100px;
             overflow-y: scroll;
         }
     </style>
@@ -64,10 +73,12 @@
 
 
     <div class='message-block' id='message_block_template'>
-        <h3 class="message-title">Message 1</h3>
-        <h4 class="message-subtitle">0 characters</h4>
-        <p class='message'></p>
+        <div class="message-title-block">
+            <h3 class="message-title">Message 1</h3>
+            <h4 class="message-subtitle">0 characters</h4>
+        </div>
         <button class="btn btn-default">Copy</button>
+        <p class='message'></p>
     </div>
     <div id="message_blocks">
 
@@ -76,9 +87,7 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
-    <script src="script.js?v=1.0.2"></script>
+    <script src="script.js?v=1.0.3"></script>
 
 </body>
 

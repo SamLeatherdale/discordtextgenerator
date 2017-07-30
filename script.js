@@ -1,3 +1,7 @@
+var isalpha = /[a-z]/i;
+var isnumber = /[0-9]/;
+var numbers = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"];
+var DISCORD_CHARACTER_LIMIT = 2000;
 function Convert() {
     var message = $("#input").val();
     var words = message.split(" ");
@@ -5,9 +9,7 @@ function Convert() {
     var newwords = [];
     var message = 1;
     var currentmessage = "";
-    var isalpha = /[a-z]/i;
-    var isnumber = /[0-9]/;
-    var numbers = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"]
+
     var separator = "\t";
     if ($("#radio_newlines").is(":checked")) {
         separator = "\n";
@@ -57,7 +59,7 @@ function Convert() {
                 newword += l;
             }
         }
-        if (currentmessage.length + newword.length > 2000) {
+        if (currentmessage.length + newword.length > DISCORD_CHARACTER_LIMIT) {
             OutputMessage(currentmessage, message);
             currentmessage = newword + separator;
             message += 1;
@@ -70,16 +72,9 @@ function Convert() {
 }
 
 function btnCopyClick() {
-    $(this).tooltip({
-        title: "Copied!",
-        trigger: "manual"
-    }).tooltip("show");
-}
+    $(".message-block button").text("Copy");
+    $(this).text("Copied!").removeClass("btn-default").addClass("btn-success");
 
-function btnCopyMouseLeave() {
-    if ($(this).is("[aria-describedby]")) {
-        $(this).tooltip('dispose');
-    }
 }
 
 function OutputMessage(message, i) {
@@ -88,7 +83,7 @@ function OutputMessage(message, i) {
     output.find(".message-title").text("Message " + i.toString());
     output.find(".message-subtitle").text(message.length + " characters");
     output.find(".message").text(message).attr("id", "message" + i.toString());
-    output.find("button").click(btnCopyClick).mouseleave(btnCopyMouseLeave);
+    output.find("button").click(btnCopyClick);
     $("#message_blocks").append(output);
 
     //After content has been added
