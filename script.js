@@ -1,14 +1,16 @@
 var isalpha = /[a-z]/i;
 var isnumber = /[0-9]/;
 var numbers = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"];
-var DISCORD_CHARACTER_LIMIT = 2000;
+
 function Convert() {
     var message = $("#input").val();
     var words = message.split(" ");
+    var convert = !$("#split_only").is(":checked");
 
     var newwords = [];
     var message = 1;
     var currentmessage = "";
+    var character_limit = isNaN(parseInt($("#message_length").val())) ? 2000 : parseInt($("#message_length").val());
 
     var separator = "\t";
     if ($("#radio_newlines").is(":checked")) {
@@ -18,48 +20,52 @@ function Convert() {
     $("#message_blocks").empty();
     $.each(words, function(wordi, word) {
         var newword = "";
-        word = word.split("");
-        for (var i = 0; i < word.length; i++) {
-            var l = word[i].toLowerCase();
-            if (l == "a") {
-                if (i < word.length - 1 && word[i + 1] == "b") {
-                    newword += ":ab: ";
-                    i += 1;
+        if (convert) {
+            word = word.split("");
+            for (var i = 0; i < word.length; i++) {
+                var l = word[i].toLowerCase();
+                if (l == "a") {
+                    if (i < word.length - 1 && word[i + 1] == "b") {
+                        newword += ":ab: ";
+                        i += 1;
+                    } else {
+                        newword += ":a: ";
+                    }
+                } else if (l == "b") {
+                    newword += ":b: ";
+                } else if (l.match(isalpha)) {
+                    newword += ":regional_indicator_" + l + ": ";
+                } else if (l.match(isnumber)) {
+                    if (l == "1" && i < word.length - 2 && word[i + 1] == "0" && word[i + 2] == "0") {
+                        newword += ":100:";
+                        i += 2;
+                    } else if (l == "1" && i < word.length - 1 && word[i + 1] == "0") {
+                        newword += ":keycap_ten: ";
+                        i += 1;
+                    } else {
+                        newword += ":" + numbers[parseInt(l)] + ": ";
+                    }
+                } else if (l == "?") {
+                    newword += ":question:";
+                } else if (l == "!") {
+                    if (i < word.length - 1 && word[i + 1] == "?") {
+                        newword += ":interrobang:";
+                        i += 1;
+                    } else {
+                        newword += ":exclamation:";
+                    }
+                } else if (l == ".") {
+                    newword += ":radio_button:";
+                } else if (l == "'") {
+                    newword += ":small_red_triangle_down:";
                 } else {
-                    newword += ":a: ";
+                    newword += l;
                 }
-            } else if (l == "b") {
-                newword += ":b: ";
-            } else if (l.match(isalpha)) {
-                newword += ":regional_indicator_" + l + ": ";
-            } else if (l.match(isnumber)) {
-                if (l == "1" && i < word.length - 2 && word[i + 1] == "0" && word[i + 2] == "0") {
-                    newword += ":100:";
-                    i += 2;
-                } else if (l == "1" && i < word.length - 1 && word[i + 1] == "0") {
-                    newword += ":keycap_ten: ";
-                    i += 1;
-                } else {
-                    newword += ":" + numbers[parseInt(l)] + ": ";
-                }
-            } else if (l == "?") {
-                newword += ":question:";
-            } else if (l == "!") {
-                if (i < word.length - 1 && word[i + 1] == "?") {
-                    newword += ":interrobang:";
-                    i += 1;
-                } else {
-                    newword += ":exclamation:";
-                }
-            } else if (l == ".") {
-                newword += ":radio_button:";
-            } else if (l == "'") {
-                newword += ":small_red_triangle_down:";
-            } else {
-                newword += l;
             }
+        } else {
+            newword = word;
         }
-        if (currentmessage.length + newword.length > DISCORD_CHARACTER_LIMIT) {
+        if (currentmessage.length + newword.length > character_limit) {
             OutputMessage(currentmessage, message);
             currentmessage = newword + separator;
             message += 1;
@@ -75,6 +81,16 @@ function btnCopyClick() {
     $(".message-block button").text("Copy");
     $(this).text("Copied!").removeClass("btn-default").addClass("btn-success");
 
+}
+
+function changeConversionMode() {
+    if ($("#split_only").is(":checked")) {
+        $("#separator_options").hide();
+        $("#convert").val("Split");
+    } else {
+        $("#separator_options").show();
+        $("#convert").val("Convert");
+    }
 }
 
 function OutputMessage(message, i) {
@@ -97,5 +113,6 @@ $(function() {
     $("#message_form").submit(function(e) {
         e.preventDefault();
         Convert();
-    })
+    });
+    $("#split_only").change(changeConversionMode);
 });

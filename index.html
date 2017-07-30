@@ -24,6 +24,12 @@
             margin-left: 16px;
         }
 
+        #message_length {
+            width: 80px;
+            display: inline-block;
+            margin-right: 5px;
+        }
+
         #message_block_template {
             display: none;
         }
@@ -55,19 +61,42 @@
 
 <body>
     <h1>Discord Regional Indicator Text Generator</h1>
-    <p>A simple script that converts text into Discord's Regional Indicator text. Supports punctuation as well.</p>
+    <p>A simple script that converts text into Discord's Regional Indicator text. Supports punctuation as well. Can also simply split long blocks of text into multiple messages.</p>
     <form id="message_form">
         <div class='form-group'>
             <label for="input">Input text:</label>
             <textarea id="input" class="form-control" rows="5" required></textarea>
         </div>
-        <div class='form-group'>
-            <h5>Separate each word with: </h5>
-            <input type="radio" id="radio_tabs" name="radio-separator" value="tabs" checked />
-            <label for="radio_tabs">Tabs</label>
-            <input type="radio" id="radio_newlines" name="radio-separator" value="newlines" />
-            <label for="radio_newlines">Line Breaks</label>
+
+        <div class="card mb-3">
+            <div class="card-header" role="tab" id="heading_advanced_options">
+                <h5 class="mb-0">
+                    <a class="collapsed" data-toggle="collapse" href="#advanced_options" aria-expanded="false" aria-controls="advanced_options">Advanced Options</a>
+                </h5>
+            </div>
+
+            <div id="advanced_options" class="collapse" role="tabpanel" aria-labelledby="heading_advanced_options">
+                <div class="card-block">
+                    <div class='form-group'>
+                        <input type="checkbox" id="split_only" />
+                        <label for="split_only">Split text only, don't convert</label>
+                    </div>
+                    <div class='form-group' id="separator_options">
+                        <h5>Separate each word with: </h5>
+                        <input type="radio" id="radio_tabs" name="radio-separator" value="tabs" checked />
+                        <label for="radio_tabs">Tabs</label>
+                        <input type="radio" id="radio_newlines" name="radio-separator" value="newlines" />
+                        <label for="radio_newlines">Line Breaks</label>
+                    </div>
+                    <div class='form-group'>
+                        <input type="number" class="form-control" id="message_length" value="2000" min='10' required />
+                        <label for="message_length">characters per message</label>
+                    </div>
+                </div>
+            </div>
         </div>
+
+
         <input type="submit" id="convert" class="btn btn-primary" value="Convert" />
     </form>
 
@@ -87,7 +116,8 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script>
-    <script src="script.js?v=1.0.3"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
+    <script src="script.js?v=1.0.4"></script>
 
 </body>
 
