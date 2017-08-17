@@ -16,6 +16,9 @@ function Convert() {
     if ($("#radio_newlines").is(":checked")) {
         separator = "\n";
     }
+	if (convert) {
+		separator = " ";
+	}
 
     $("#message_blocks").empty();
     $.each(words, function(wordi, word) {
