@@ -16,7 +16,7 @@ function Convert() {
     if ($("#radio_newlines").is(":checked")) {
         separator = "\n";
     }
-	if (convert) {
+	if (!convert) {
 		separator = " ";
 	}
 
