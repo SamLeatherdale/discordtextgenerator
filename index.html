@@ -3,69 +3,31 @@
 
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Discord Regional Indicator Text Generator</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" />
-    <style>
-        body {
-            max-width: 800px;
-            margin: 30px auto;
-            padding: 0 16px;
-        }
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha256-m/h/cUDAhf6/iBRixTbuc8+Rg2cIETQtPcH9D3p2Kg0=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-switch/3.3.4/css/bootstrap3/bootstrap-switch.min.css" integrity="sha256-sj3qkRTZIL8Kff5fST1TX0EF9lEmSfFgjNvuiw2CV5w=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="style.css?v=1.0.7" />
 
-        label {
-            font-weight: 600;
-        }
-
-        #message_form h5 {
-            font-weight: normal;
-        }
-
-        #radio_newlines {
-            margin-left: 16px;
-        }
-
-        #message_length {
-            width: 80px;
-            display: inline-block;
-            margin-right: 5px;
-        }
-
-        #message_block_template {
-            display: none;
-        }
-
-        .message-block {
-            margin-top: 25px;
-        }
-
-        .message-block button {
-            vertical-align: top;
-        }
-
-        .message-title-block {
-            display: inline-block;
-            width: 175px;
-        }
-
-        .message-block h4 {
-            font-size: 16px;
-            color: #868686;
-        }
-
-        .message {
-            max-height: 100px;
-            overflow-y: scroll;
-        }
-    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha256-DiWJXXyq81WlPRnDfGmgYZj2aOVCKyEdJ1l+2TmDuAs=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-switch/3.3.4/js/bootstrap-switch.min.js" integrity="sha256-AKUJYz2DyEoZYHh2/+zPHm1tTdYb4cmG8HC2ydmTzM4=" crossorigin="anonymous"></script>
+    <script src="script.js?v=1.0.7"></script>
 </head>
 
 <body>
     <h1>Discord Regional Indicator Text Generator</h1>
-    <p>A simple script that converts text into Discord's Regional Indicator text. Supports punctuation as well. Can also simply split long blocks of text into multiple messages.</p>
+    <p class="subtitle">A simple script that converts text into Discord's Regional Indicator text. Supports punctuation as well. Can also simply split long blocks of text into multiple messages.</p>
     <form id="message_form">
         <div class='form-group'>
             <label for="input">Input text:</label>
             <textarea id="input" class="form-control" rows="5" required></textarea>
+        </div>
+
+        <div class="mb-3">
+            <label for="convert">Convert Letters:</label>
+            <input type="checkbox" name="convert" id="convert" checked>
         </div>
 
         <div class="card mb-3">
@@ -76,11 +38,7 @@
             </div>
 
             <div id="advanced_options" class="collapse" role="tabpanel" aria-labelledby="heading_advanced_options">
-                <div class="card-block">
-                    <div class='form-group'>
-                        <input type="checkbox" id="split_only" />
-                        <label for="split_only">Split text only, don't convert</label>
-                    </div>
+                <div class="card-body">
                     <div class='form-group' id="separator_options">
                         <h5>Separate each word with: </h5>
                         <input type="radio" id="radio_tabs" name="radio-separator" value="tabs" checked />
@@ -97,7 +55,7 @@
         </div>
 
 
-        <input type="submit" id="convert" class="btn btn-primary" value="Convert" />
+        <input type="submit" id="button_start" class="btn btn-primary" value="Convert" />
     </form>
 
 
@@ -112,13 +70,6 @@
     <div id="message_blocks">
 
     </div>
-
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
-    <script src="script.js?v=1.0.6"></script>
-
 </body>
 
 </html>

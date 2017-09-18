@@ -5,7 +5,7 @@ var numbers = ["zero", "one", "two", "three", "four", "five", "six", "seven", "e
 function Convert() {
     var message = $("#input").val();
     var words = message.split(" ");
-    var convert = !$("#split_only").is(":checked");
+    var convert = $("#convert").is(":checked");
 
     var newwords = [];
     var message = 1;
@@ -87,12 +87,12 @@ function btnCopyClick() {
 }
 
 function changeConversionMode() {
-    if ($("#split_only").is(":checked")) {
-        $("#separator_options").hide();
-        $("#convert").val("Split");
-    } else {
+    if ($("#convert").is(":checked")) {
         $("#separator_options").show();
-        $("#convert").val("Convert");
+        $("#button_start").val("Convert");
+    } else {
+        $("#separator_options").hide();
+        $("#button_start").val("Split");
     }
 }
 
@@ -117,5 +117,9 @@ $(function() {
         e.preventDefault();
         Convert();
     });
-    $("#split_only").change(changeConversionMode);
+    $("#convert").bootstrapSwitch({
+        onText: "Convert",
+        offText: "Split",
+        onSwitchChange: changeConversionMode
+    });
 });
